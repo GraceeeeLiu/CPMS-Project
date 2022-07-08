@@ -1,0 +1,374 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Profile {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<form role="form" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="container-fluid px-2 px-md-4">
+      <div class="page-header min-height-300 border-radius-xl mt-4"
+           style="background-image: url('https://images.unsplash.com/photo-1472173148041-00294f0814a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+<!--           style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">-->
+        <span class="mask  bg-gradient-primary  opacity-1"></span>
+      </div>
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-4 mb-2">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{{ ASSETS_ROOT }}/img/authorIcon.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                {{ user.first_name }} {{ user.last_name }}
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                {{ uform.username }}
+              </p>
+              <p class="mb-0 font-weight-normal text-sm">
+                {{ uform.email }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="row">
+
+
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-3">
+                  <h6 class="mb-0">Account Information</h6>
+                </div>
+                <div class="table card-body p-3 table-responsive">
+                  <table class="table">
+
+                    <tbody>
+                      <tr>
+                        <td>Middle Initial</td>
+                        <td>
+                          {{ form1.MiddleInitial }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Affiliation</td>
+                        <td>
+                          {{ form1.Affiliation }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Department</td>
+                        <td>
+                          {{ form1.Department }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Address</td>
+                        <td>
+                          {{ form1.Address }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>City</td>
+                        <td>
+                          {{ form1.City }}
+                        </td>
+                      </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>
+                          {{ form1.State }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>ZipCode</td>
+                        <td>
+                          {{ form1.ZipCode }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>PhoneNumber</td>
+                        <td>
+                          {{ form1.PhoneNumber }}
+                        </td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-3">
+                  <h6 class="mb-0"></h6>
+                </div>
+                <div class="card-body p-3">
+                  {% if usertype == 'Reviewer' %}
+                  <table class="table ">
+                    <tbody>
+                      <tr>
+                        <td>AnalysisOfAlgorithms</td>
+                        <td>
+                          {{ form1.AnalysisOfAlgorithms }}
+                        </td>
+                      </tr>
+                      <tr>
+                          <td>Applications</td>
+                          <td>
+                            {{ form1.Applications }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Architecture</td>
+                          <td>
+                            {{ form1.Architecture }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ArtificialIntelligence</td>
+                          <td>
+                            {{ form1.ArtificialIntelligence }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ComputerEngineering</td>
+                          <td>
+                            {{ form1.ComputerEngineering }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Curriculum</td>
+                          <td>
+                            {{ form1.Curriculum }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>DataStructures</td>
+                          <td>
+                            {{ form1.DataStructures }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Databases</td>
+                          <td>
+                            {{ form1.Databases }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>DistanceLearning</td>
+                          <td>
+                            {{ form1.DistanceLearning }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>DistributedSystems</td>
+                          <td>
+                            {{ form1.DistributedSystems }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>EthicalSocietalIssues</td>
+                          <td>
+                            {{ form1.EthicalSocietalIssues }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>FirstYearComputing</td>
+                          <td>
+                            {{ form1.FirstYearComputing }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>GenderIssues</td>
+                          <td>
+                            {{ form1.GenderIssues }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>GrantWriting</td>
+                          <td>
+                            {{ form1.GrantWriting }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>GraphicsImageProcessing</td>
+                          <td>
+                            {{ form1.GraphicsImageProcessing }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>HumanComputerInteraction</td>
+                          <td>
+                            {{ form1.HumanComputerInteraction }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>LaboratoryEnvironments</td>
+                          <td>
+                            {{ form1.LaboratoryEnvironments }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Literacy</td>
+                          <td>
+                            {{ form1.Literacy }}
+                          </td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-3">
+                  <h6 class="mb-0"></h6>
+                </div>
+                <div class="card-body p-3">
+                  {% if usertype == 'Reviewer' %}
+                  <table class="table ">
+                    <tbody>
+                      <tr>
+                          <td>MathematicsInComputing</td>
+                          <td>
+                            {{ form1.MathematicsInComputing }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Multimedia</td>
+                          <td>
+                            {{ form1.Multimedia }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>NetworkingDataCommunications</td>
+                          <td>
+                            {{ form1.NetworkingDataCommunications }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>NonMajorCourses</td>
+                          <td>
+                            {{ form1.NonMajorCourses }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ObjectOrientedIssues</td>
+                          <td>
+                            {{ form1.ObjectOrientedIssues }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>OperatingSystems</td>
+                          <td>
+                            {{ form1.OperatingSystems }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ParallelProcessing</td>
+                          <td>
+                            {{ form1.ParallelProcessing }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Pedagogy</td>
+                          <td>
+                            {{ form1.Pedagogy }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ProgrammingLanguages</td>
+                          <td>
+                            {{ form1.ProgrammingLanguages }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Research</td>
+                          <td>
+                            {{ form1.Research }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Security</td>
+                          <td>
+                            {{ form1.Security }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>SoftwareEngineering</td>
+                          <td>
+                            {{ form1.SoftwareEngineering }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>SystemsAnalysisAndDesign</td>
+                          <td>
+                            {{ form1.SystemsAnalysisAndDesign }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>UsingTechnologyInTheClassroom</td>
+                          <td>
+                            {{ form1.UsingTechnologyInTheClassroom }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>WebAndInternetProgramming</td>
+                          <td>
+                            {{ form1.WebAndInternetProgramming }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Other</td>
+                          <td>
+                            {{ form1.Other }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ReviewsAcknowledged</td>
+                          <td>
+                            {{ form1.ReviewsAcknowledged }}
+                          </td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                  {% endif %}
+                  {% if usertype == 'Reviewer' %}
+                  <table>
+                    <tbody><tr><td>Other Description</td><td>{{ form1.OtherDescription }}</td></tr></tbody>
+                  </table>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+
+
+          </div>
+        </div>
+
+    {% include 'includes/footer.html' %}
+    </div>
+</form>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

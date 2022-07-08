@@ -1,0 +1,215 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Sign UP {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container-fluid">
+          <div class="row">
+
+           <h1 class="font-weight-bolder">Author Registration Form</h1>
+
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Account Information</th>
+                      </tr>
+                    </thead>
+
+                <form role="form" method="POST" action="">
+                  {% csrf_token %}
+                    <tbody>
+                      <tr>
+                        <td>{{ form.firstname }} <span class="text-danger">{{ form.firstnafme.errors }}</span></td>
+<!--                        <td>{{ form1.Type }}</td>-->
+                      </tr>
+                      <tr>
+                        <td>{{ form.lastname }} <span class="text-danger">{{ form.lastname.errors }}</span></td>
+<!--                         <td>{{ form1.Department }}</td>-->
+                      </tr>
+                      <tr>
+                        <td>{{ form.username }} <span class="text-danger">{{ form.username.errors }}</span></td>
+<!--                        <td>{{ form1.Address }}</td>-->
+                      </tr>
+                      <tr>
+                        <td>{{ form.email }} <span class="text-danger">{{ form.email.errors }}</span></td>
+<!--                         <td>{{ form1.City }}</td>-->
+                      </tr>
+                      <tr>
+                        <td>{{ form.password1 }} <span class="text-danger">{{ form.password1.errors }}</span></td>
+<!--                        <td>{{ form1.State }}</td>-->
+                      </tr>
+                      <tr>
+                        <td>{{ form.password2 }} <span class="text-danger">{{ form.password2.errors }}</span></td>
+<!--                         <td>{{ form1.ZipCode }}</td>-->
+                      </tr>
+
+                      <tr>
+<!--                         <td>{{ form1.PhoneNumber }}</td>-->
+                      </tr>
+
+
+                    </tbody>
+
+                    <tfoot>
+                    <tr>
+                      <td>
+                         <div class="form-check form-check-info text-start ps-0">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                            <label class="form-check-label" for="flexCheckDefault">
+                              I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                            </label>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="text-center">
+                          <button type="submit" name="register" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
+                        </div>
+                      </td>
+                    <tr>
+                    </tfoot>
+
+                </form>
+              </table>
+
+            </div>
+
+
+
+
+<!--            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">-->
+<!--              <form role="form" method="post" action="">-->
+
+<!--                    {% csrf_token %}-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.firstname }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.firstname.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.lastname }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.lastname.errors }}</span>-->
+
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.username }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.username.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.email }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.email.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.password1 }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.password1.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.password2 }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.password2.errors }}</span>-->
+<!--                </form>-->
+<!--            </div>-->
+
+
+
+<!--            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">-->
+<!--              <div class="card card-plain">-->
+<!--                <div class="card-header">-->
+<!--                  <h4 class="font-weight-bolder">-->
+<!--                    Author Registration Form-->
+<!--                  </h4>-->
+<!--                  <p class="mb-0">-->
+<!--                    {% if msg %}-->
+<!--                      <span class="text-danger">{{ msg | safe }}</span>-->
+<!--                    {% else %}-->
+<!--                      Enter your information below to register-->
+<!--                    {% endif %}                    -->
+<!--                  </p>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                  <form role="form" method="post" action="">-->
+
+<!--                    {% csrf_token %}-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.firstname }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.firstname.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.lastname }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.lastname.errors }}</span>-->
+
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.username }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.username.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.email }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.email.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.password1 }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.password1.errors }}</span>-->
+
+<!--                    <div class="input-group input-group-outline mb-3">-->
+<!--                      {{ form.password2 }}-->
+<!--                    </div>-->
+<!--                    <span class="text-danger">{{ form.password2.errors }}</span>-->
+
+<!--                    <div class="form-check form-check-info text-start ps-0">-->
+<!--                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>-->
+<!--                      <label class="form-check-label" for="flexCheckDefault">-->
+<!--                        I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="text-center">-->
+<!--                      <button type="submit" name="register" -->
+<!--                              class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>-->
+<!--                    </div>-->
+<!--                  </form>-->
+<!--                </div>-->
+<!--                <div class="card-footer text-center pt-0 px-lg-2 px-1">-->
+<!--                  <p class="mb-2 text-sm mx-auto">-->
+<!--                    Already have an account?-->
+<!--                    <a href="{% url 'login' %}" class="text-primary text-gradient font-weight-bold">Sign IN</a>-->
+<!--                  </p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

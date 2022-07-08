@@ -1,0 +1,174 @@
+{% extends "layouts/base.html" %}
+{% load my_templatetags %}
+{% block title %} Paper Revision {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-xl-6 mb-xl-0 mb-4">
+          </div>
+
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <div class="card">
+                  <div class="card-header mx-4 p-3 text-center">
+                    <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                      <i class="material-icons opacity-10">file_upload</i>
+                    </div>
+                  </div>
+                  <div class="card-body pt-0 p-3 text-center">
+                    <h6 class="text-center mb-0">Revision Submitted</h6>
+                    <span class="text-xs">Total Revision Submitted</span>
+                    <hr class="horizontal dark my-3">
+                    <h5 class="mb-0">
+                      {% if count %}
+                        {{ count }}
+                      {% endif %}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-6">
+                <div class="card">
+                  <div class="card-header mx-4 p-3 text-center">
+                    <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                      <i class="material-icons opacity-10">pending_actions</i>
+                    </div>
+                  </div>
+                  <div class="card-body pt-0 p-3 text-center">
+                    <h6 class="text-center mb-0">Revisions Pending</h6>
+                    <span class="text-xs">Total Revisions Pending</span>
+                    <hr class="horizontal dark my-3">
+                    <h5 class="mb-0">{{ reviewCount }}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mb-lg-0 mb-4">
+      <div class="card mt-4">
+        <div class="card-header pb-0 p-3">
+          <div class="row">
+            <div class="col-6 d-flex align-items-center">
+              <h6 class="mb-0">Filter Utilities</h6>
+            </div>
+            <form method="GET">
+             <div class="row">
+               <div class="col-4">
+
+                 {{ filter.form.completeFilter }}
+                 {{ filter.form.ReviewSearch }}
+                 {{ filter.form.filenameSearch }}
+               </div>
+               <div class="col-3">
+
+                 {{ filter.form.TitleSearch }}
+                 {{ filter.form.certificationSearch }}
+                 {{ filter.form.departmentSearch }}
+               </div>
+               <div class="col-3">
+
+                 {{ filter.form.affiliationSearch }}
+                 {{ filter.form.firstSearch }}
+                 {{ filter.form.lastSearch }}
+               </div>
+               <div class="col-2">
+                 <input type="submit" class="btn inline btn-primary" name="filter" value="Search">
+               </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card-body p-3">
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Revision Information</h6>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                <thead class="table-dark text-white">
+                  <tr>
+                    <th>ReviewID</th>
+                    <th>Title</th>
+                    <th>Filename</th>
+                    <th>Certification</th>
+                    <th>Notes To Reviewers</th>
+                    <th>Other Description</th>
+                    <th>Complete</th>
+                    <th>Download</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for review in page_obj.object_list %}
+                  <tr>
+                    <td><a class="link-primary" href="{% url 'reviewForm' review.ReviewID %}">{{ review.ReviewID }}</a></td>
+                    <td>{{ review.PaperID.Title }}</td>
+                    <td>{{ review.PaperID.Filename }}</td>
+                    <td>{{ review.PaperID.Certification }}</td>
+                    <td>{{ review.PaperID.NotesToReviewers }}</td>
+                    <td>{{ review.PaperID.OtherDescription }}</td>
+                    <td>{{ review.Complete }}</td>
+                    <td><a href="#"> <i class="material-icons">download</i></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+
+                {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=1 %}">First</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.previous_page_number %}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <a class="btn btn-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.next_page_number %}">Next</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.paginator.num_pages %}">Last</a>
+                {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% include 'includes/footer.html' %}
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

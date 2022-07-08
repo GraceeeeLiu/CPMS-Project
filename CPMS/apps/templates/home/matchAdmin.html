@@ -1,0 +1,349 @@
+{% extends "layouts/base.html" %}
+{% load my_templatetags %}
+{% block title %} Match Papers & Reviewers {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container-fluid py-4">
+    <div class="row">
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Papers Table</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+
+            <div class="row">
+              <div class="form">
+                <form method="GET">
+                 <div class="row">
+                   <div class="col-4">
+                    {{ filter.form.activeFilter }}
+                    {{ filter.form.filenameSearch }}
+                   </div>
+                   <div class="col-3">
+                    {{ filter.form.TitleSearch }}
+                    {{ filter.form.certificationSearch }}
+                   </div>
+                   <div class="col-3">
+                    {{ filter.form.affiliationSearch }}
+                    {{ filter.form.departmentSearch }}
+                   </div>
+                   <div class="col-1">
+                    <input type="submit" class="btn inline btn-primary" name="filter" value="Search">
+                  </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+            <div class="table-responsive p-0">
+
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Paper ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Filename</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Certification</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Notes To Reviewers</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OtherDescription</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% for paper in page_obj.object_list %}
+                  <tr>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ paper.PaperID }}</p>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{ ASSETS_ROOT }}/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ paper.AuthorID.AuthorID.userID.first_name }} {{ paper.AuthorID.AuthorID.userID.last_name }} </h6>
+                          <p class="text-xs text-secondary mb-0">{{ paper.AuthorID.AuthorID.userID.email }}</p>
+                          <p class="text-xs text-secondary mb-0">{{ paper.AuthorID.Affiliation }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ paper.Title }}</p>
+                      <span class="badge badge-sm bg-gradient-success">{% if paper.Active %} Active {% else %} Inactive{% endif%}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="text-xs text-secondary mb-0">{{ paper.Filename }}</p>
+                      <p class="text-xs text-secondary mb-0">{{ paper.FilenameOriginal }}</p>
+<!--                      <span class="badge badge-sm bg-gradient-success">{{ paper.Filename }}</span>-->
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ paper.Certification }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ paper.NotesToReviewers }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ paper.OtherDescription }}</span>
+                    </td>
+<!--                    <td class="align-middle">-->
+<!--                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">-->
+<!--                        Edit-->
+<!--                      </a>-->
+<!--                    </td>-->
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+
+                {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=1 %}">First</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.previous_page_number %}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <a class="btn btn-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.next_page_number %}">Next</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.paginator.num_pages %}">Last</a>
+                {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Reviewers Table</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+
+            <div class="row">
+              <div class="form">
+                <form method="GET">
+                 <div class="row">
+                   <div class="col-4">
+                      {{ filter1.form.reviewerSearch }}
+                      {{ filter1.form.activeFilter }}
+                      {{ filter1.form.acknowledgedFilter }}
+                   </div>
+                   <div class="col-3">
+                      {{ filter1.form.reviewerName }}
+                      {{ filter1.form.reviewerLast }}
+                   </div>
+                   <div class="col-3">
+                      {{ filter1.form.reviewerAffiliation }}
+                      {{ filter1.form.reviewerDepartment }}
+                   </div>
+                   <div class="col-1">
+                    <input type="submit" class="btn inline btn-primary" name="filter" value="Search">
+                  </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reviewer ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Reviewer</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Active</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reviews Acknowledged</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% for reviewer in page_obj1.object_list %}
+                  <tr>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ reviewer.ReviewerID.id }}</p>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ reviewer.ReviewerID.userID.first_name }} {{ reviewer.ReviewerID.userID.last_name }} </h6>
+                          <p class="text-xs text-secondary mb-0">{{ reviewer.ReviewerID.userID.email }}</p>
+                          <p class="text-xs text-secondary mb-0">{{ reviewer.Affiliation }}</p>
+                          <p class="text-xs text-secondary mb-0">{{ reviewer.Department }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="badge badge-sm bg-gradient-success">{% if reviewer.Active %} Active {% else %} Inactive{% endif%}</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="text-xs text-secondary mb-0">{% if reviewer.ReviewsAcknowledged %} Yes {% else %} No {% endif%} </p>
+<!--                      <span class="badge badge-sm bg-gradient-success">{{ paper.Filename }}</span>-->
+                    </td>
+
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+
+                {% if page_obj1.has_previous %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=1 %}">First</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj1.previous_page_number %}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj1.paginator.page_range %}
+                {% if page_obj1.number == num %}
+                  <a class="btn btn-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% elif num > page_obj1.number|add:'-3' and num < page_obj1.number|add:'3' %}
+                  <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj1.has_next %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj1.next_page_number %}">Next</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj1.paginator.num_pages %}">Last</a>
+                {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Assignment Form</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Paper ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Reviewer ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <input type="number" name="paperID">
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <input type="number" name="reviewerID">
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="col-md-12 mb-lg-0 mb-4">
+            <div class="card mt-4">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-6 d-flex align-items-center">
+                    <h6 class="mb-0">Confirm Assignment</h6>
+                  </div>
+                    <div class="form-group text-center">
+                      <button class="btn bg-gradient-dark mb-0" type="submit"><i class="material-icons text-sm">assignment_ind</i>Assign</button>
+                    </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+              </div>
+            </div>
+      </div>
+
+    </div>
+
+
+</form>
+
+
+    <footer class="footer py-4  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Coded by
+              <a href="#" class="font-weight-bold" target="_blank">Daniel & Grace</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="#" class="nav-link text-muted" target="_blank">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link text-muted" target="_blank">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link pe-0 text-muted" target="_blank">Support</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

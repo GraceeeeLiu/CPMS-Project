@@ -1,0 +1,224 @@
+{% extends "layouts/base.html" %}
+{% load my_templatetags %}
+{% block title %} Match Papers & Reviewers {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">upload</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Papers Submitted</p>
+              <h4 class="mb-0">{{ totalPaper }}</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+<!--            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than lask week</p>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">assignment_ind</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Assigned Papers</p>
+              <h4 class="mb-0"> {{count}} </h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+<!--            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">Unassigned Papers:</span> {{ unassigned }}</p>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">done</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Papers Reviewed</p>
+              <h4 class="mb-0">{{ reviewed }}</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+<!--            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than lask month</p>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">pending</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Pending Reviews</p>
+              <h4 class="mb-0">{{ unreviewed }}</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+<!--            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>-->
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Papers Table</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+
+            <div class="row">
+              <div class="form">
+                <form method="GET">
+                 <div class="row">
+                   <div class="col-4">
+                    {{ filter.form.completeFilter }}
+                    {{ filter.form.ReviewSearch }}
+                    {{ filter.form.filenameSearch }}
+                   </div>
+                   <div class="col-3">
+                    {{ filter.form.TitleSearch }}
+                    {{ filter.form.certificationSearch }}
+                    {{ filter.form.departmentSearch }}
+                   </div>
+                   <div class="col-3">
+                    {{ filter.form.affiliationSearch }}
+                    {{ filter.form.firstSearch }}
+                    {{ filter.form.lastSearch }}
+                   </div>
+                   <div class="col-2">
+                    <input type="submit" class="btn inline btn-primary" name="filter" value="Search">
+                  </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+            <div class="table-responsive p-0">
+
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Review ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Paper Title</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Filename</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Certification</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reviewer Name</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Complete?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for review in page_obj.object_list %}
+                  <tr>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ review.ReviewID }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ review.PaperID.Title }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ review.PaperID.Filename }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ review.PaperID.Certification }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ review.PaperID.AuthorID.AuthorID.userID.first_name }} {{ review.PaperID.AuthorID.AuthorID.userID.last_name }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{% if review.Complete %} <i class="material-icons opacity-10">done</i> {% else %}<i class="material-icons opacity-10">pending</i>{% endif%}</p>
+                    </td>
+
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+
+                {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=1 %}">First</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.previous_page_number %}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <a class="btn btn-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=num %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.next_page_number %}">Next</a>
+                <a class="btn btn-outline-primary mb-4" href="?{% query_transform request page=page_obj.paginator.num_pages %}">Last</a>
+                {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer py-4  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Coded by
+              <a href="#" class="font-weight-bold" target="_blank">Daniel & Grace</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="#" class="nav-link text-muted" target="_blank">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link text-muted" target="_blank">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link pe-0 text-muted" target="_blank">Support</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

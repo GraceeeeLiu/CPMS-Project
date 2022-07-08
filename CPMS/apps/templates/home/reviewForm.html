@@ -1,0 +1,164 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Billing {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<form role="role" method="POST" >
+  {% csrf_token %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <h6 class=" mb-0">ReviewID:</h6>
+                        <h6 class=" mb-0">Filename:</h6>
+                        <h6 class=" mb-0">Title:</h6>
+                        <h6 class=" mb-0">Certification:</h6>
+                        <h6 class=" mb-0">Complete:</h6>
+                        <hr class="horizontal dark my-3">
+                        <h6 class=" mb-0">Notes To Reviewers:</h6>
+                        <h6 class=" mb-0">Other Description:</h6>
+                      </div>
+                      <div class="col-6 text-end">
+                        <p class="font-weight-bold mb-0">{{ review.ReviewID }}</p>
+                        <p class="font-weight-bold mb-0">{{ review.PaperID.Filename }}</p>
+                        <p class="font-weight-bold mb-0">{{ review.PaperID.Title }}</p>
+                        <p class="font-weight-bold mb-0">{{ review.PaperID.Certification }}</p>
+                        <p class="font-weight-bold mb-0">{{ review.Complete }}</p>
+                        <hr class="horizontal dark my-3">
+                        <p class="font-weight-bold mb-0">{{ review.PaperID.NotesToReviewers }}</p>
+                        <p class="font-weight-bold mb-0">{{ review.PaperID.OtherDescription }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Revision Form for Review #{{ review.ReviewID }}</h6>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="50%">Attribute</th>
+                    <th width="50%">Score</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Appropriateness Of Topic</td>
+                    <td>{{ rform.AppropriatenessOfTopic }}</td>
+                  </tr>
+                  <tr>
+                    <td>Timeliness Of Topic</td>
+                    <td>{{ rform.TimelinessOfTopic }}</td>
+                  </tr>
+                  <tr>
+                    <td>Supportive Evidence</td>
+                    <td>{{ rform.SupportiveEvidence }}</td>
+                  </tr>
+                  <tr>
+                    <td>Technical Quality</td>
+                    <td>{{ rform.TechnicalQuality }}</td>
+                  </tr>
+                  <tr>
+                    <td>Scope Of Coverage</td>
+                    <td>{{ rform.ScopeOfCoverage }}</td>
+                  </tr>
+                  <tr>
+                    <td>Citation Of PreviousWork</td>
+                    <td>{{ rform.CitationOfPreviousWork }}</td>
+                  </tr>
+                  <tr>
+                    <td>Originality</td>
+                    <td>{{ rform.Originality }}</td>
+                  </tr>
+                  <tr>
+                    <td>Content Comments</td>
+                    <td>{{ rform.ContentComments }}</td>
+                  </tr>
+                  <tr>
+                    <td>Organization Of Papers</td>
+                    <td>{{ rform.OrganizationOfPapers }}</td>
+                  </tr>
+                  <tr>
+                    <td>Clarity Of Main Message</td>
+                    <td>{{ rform.ClarityOfMainMessage }}</td>
+                  </tr>
+                  <tr>
+                    <td>Mechanics</td>
+                    <td>{{ rform.Mechanics }}</td>
+                  </tr>
+                  <tr>
+                    <td>Written Document Comments</td>
+                    <td>{{ rform.WrittenDocumentComments }}</td>
+                  </tr>
+                  <tr>
+                    <td>Suitability For Presentation</td>
+                    <td>{{ rform.SuitabilityForPresentation }}</td>
+                  </tr>
+                  <tr>
+                    <td>Potential Interest In Topic</td>
+                    <td>{{ rform.PotentialInterestInTopic }}</td>
+                  </tr>
+                  <tr>
+                    <td>Potential For Oral Presentation Comments</td>
+                    <td>{{ rform.PotentialForOralPresentationComments }}</td>
+                  </tr>
+                  <tr>
+                    <td>Overall Rating</td>
+                    <td>{{ rform.OverallRating }}</td>
+                  </tr>
+                  <tr>
+                    <td>Overall Rating Comments</td>
+                    <td>{{ rform.OverallRatingComments }}</td>
+                  </tr>
+                  <tr>
+                    <td>Comfort Level Topic</td>
+                    <td>{{ rform.ComfortLevelTopic }}</td>
+                  </tr>
+                  <tr>
+                    <td>Comfort Level Acceptability</td>
+                    <td>{{ rform.ComfortLevelAcceptability }}</td>
+                  </tr>
+                  <tr>
+                    <td>Complete?</td>
+                    <td>{{ rform.Complete }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+                 <div class="form-group">
+                      <button class="btn btn-outline-info" type="submit">Submit</button>
+                 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'includes/footer.html' %}
+  </div>
+
+</form>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,241 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Billing {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<form role="role" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container-fluid py-4">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <h6 class=" mb-0">PaperID:</h6>
+                        <h6 class=" mb-0">AuthorID:</h6>
+                        <h6 class=" mb-0">Active:</h6>
+                      </div>
+                      <div class="col-6 text-end">
+                        <p class="font-weight-bold mb-0">{{ paper.PaperID }}</p>
+                        <p class="font-weight-bold mb-0">{{ paper.AuthorID }}</p>
+                        <p class="font-weight-bold mb-0">{{ paper.Active }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Submission Form for Paper #{{ paper.PaperID }}</h6>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="50%">Attribute</th>
+                    <th width="50%">Selection</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Filename Original</td>
+                    <td>{{ pform.FilenameOriginal }}</td>
+                  </tr>
+                  <tr>
+                    <td>Filename</td>
+                    <td>{{ pform.Filename }}</td>
+                  </tr>
+                  <tr>
+                    <td>Title</td>
+                    <td>{{ pform.Title }}</td>
+                  </tr>
+                  <tr>
+                      <td>Certification</td>
+                      <td>{{ pform.Certification }}</td>
+                  </tr>
+                  <tr>
+                    <td>NotesToReviewers</td>
+                    <td>{{ pform.NotesToReviewers }}</td>
+                  </tr>
+                  <tr>
+                    <td>AnalysisOfAlgorithms</td>
+                    <td>{{ pform.AnalysisOfAlgorithms }}</td>
+                  </tr>
+                  <tr>
+                    <td>Applications</td>
+                    <td>{{ pform.Applications }}</td>
+                  </tr>
+                  <tr>
+                    <td>Architecture</td>
+                    <td>{{ pform.Architecture }}</td>
+                  </tr>
+                  <tr>
+                    <td>ArtificialIntelligence</td>
+                    <td>{{ pform.ArtificialIntelligence }}</td>
+                  </tr>
+                  <tr>
+                    <td>ComputerEngineering</td>
+                    <td>{{ pform.ComputerEngineering }}</td>
+                  </tr>
+                  <tr>
+                    <td>Curriculum</td>
+                    <td>{{ pform.Curriculum }}</td>
+                  </tr>
+                  <tr>
+                    <td>DataStructures</td>
+                    <td>{{ pform.DataStructures }}</td>
+                  </tr>
+                  <tr>
+                    <td>Databases</td>
+                    <td>{{ pform.Databases }}</td>
+                  </tr>
+                  <tr>
+                    <td>DistanceLearning</td>
+                    <td>{{ pform.DistanceLearning }}</td>
+                  </tr>
+                  <tr>
+                    <td>DistributedSystems</td>
+                    <td>{{ pform.DistributedSystems }}</td>
+                  </tr>
+                  <tr>
+                    <td>EthicalSocietalIssues</td>
+                    <td>{{ pform.EthicalSocietalIssues }}</td>
+                  </tr>
+                  <tr>
+                      <td>FirstYearComputing</td>
+                      <td>{{ pform.FirstYearComputing }}</td>
+                  </tr>
+                  <tr>
+                    <td>GenderIssues</td>
+                    <td>{{ pform.GenderIssues }}</td>
+                  </tr>
+                  <tr>
+                    <td>GrantWriting</td>
+                    <td>{{ pform.GrantWriting }}</td>
+                  </tr>
+                  <tr>
+                    <td>GraphicsImageProcessing</td>
+                    <td>{{ pform.GraphicsImageProcessing }}</td>
+                  </tr>
+                  <tr>
+                    <td>HumanComputerInteraction</td>
+                    <td>{{ pform.HumanComputerInteraction }}</td>
+                  </tr>
+                  <tr>
+                    <td>LaboratoryEnvironments</td>
+                    <td>{{ pform.LaboratoryEnvironments }}</td>
+                  </tr>
+                  <tr>
+                    <td>Literacy</td>
+                    <td>{{ pform.Literacy }}</td>
+                  </tr>
+                  <tr>
+                    <td>MathematicsInComputing</td>
+                    <td>{{ pform.MathematicsInComputing }}</td>
+                  </tr>
+                  <tr>
+                    <td>Multimedia</td>
+                    <td>{{ pform.Multimedia }}</td>
+                  </tr>
+                  <tr>
+                    <td>NetworkingDataCommunications</td>
+                    <td>{{ pform.NetworkingDataCommunications }}</td>
+                  </tr>
+                  <tr>
+                    <td>NonMajorCourses</td>
+                    <td>{{ pform.NonMajorCourses }}</td>
+                  </tr>
+                  <tr>
+                    <td>ObjectOrientedIssues</td>
+                    <td>{{ pform.ObjectOrientedIssues }}</td>
+                  </tr>
+                  <tr>
+                    <td>OperatingSystems</td>
+                    <td>{{ pform.OperatingSystems }}</td>
+                  </tr>
+                  <tr>
+                      <td>ParallelProcessing</td>
+                      <td>{{ pform.ParallelProcessing }}</td>
+                  </tr>
+                  <tr>
+                    <td>Pedagogy</td>
+                    <td>{{ pform.Pedagogy }}</td>
+                  </tr>
+                  <tr>
+                    <td>ProgrammingLanguages</td>
+                    <td>{{ pform.ProgrammingLanguages }}</td>
+                  </tr>
+                  <tr>
+                    <td>Research</td>
+                    <td>{{ pform.Research }}</td>
+                  </tr>
+                  <tr>
+                    <td>Security</td>
+                    <td>{{ pform.Security }}</td>
+                  </tr>
+                  <tr>
+                    <td>SoftwareEngineering</td>
+                    <td>{{ pform.SoftwareEngineering }}</td>
+                  </tr>
+                  <tr>
+                    <td>SystemsAnalysisAndDesign</td>
+                    <td>{{ pform.SystemsAnalysisAndDesign }}</td>
+                  </tr>
+                  <tr>
+                    <td>UsingTechnologyInTheClassroom</td>
+                    <td>{{ pform.UsingTechnologyInTheClassroom }}</td>
+                  </tr>
+                  <tr>
+                    <td>WebAndInternetProgramming</td>
+                    <td>{{ pform.WebAndInternetProgramming }}</td>
+                  </tr>
+                  <tr>
+                    <td>Other</td>
+                    <td>{{ pform.Other }}</td>
+                  </tr>
+                  <tr>
+                    <td>OtherDescription</td>
+                    <td>{{ pform.OtherDescription }}</td>
+                  </tr>
+                  <tr>
+                      <td>Upload Paper</td>
+                      <td>{{ pform.fileLOC }}</td>
+<!--                      <td><i class="material-icons">file_upload</i></td>-->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+                 <div class="form-group">
+                      <button class="btn btn-outline-info" type="submit" name="paperUpload">Submit</button>
+                 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'includes/footer.html' %}
+  </div>
+
+</form>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
